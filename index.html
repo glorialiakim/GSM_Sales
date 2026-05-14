@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GSM 영업 정리요청 – 취합 자료</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brand:#971B2F;--brand-light:#c0334d;--black:#1e293b;--warm:#f5f0ea;--warm2:#ece5dc;
+  --white:#fff;--gray:#94a3b8;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#2563eb;--teal:#0d9488;
+}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory;overflow-y:scroll;font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+body{background:var(--warm);color:var(--black)}
+
+section{height:100vh;max-height:56.25vw;min-height:500px;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;padding:48px 100px;overflow:hidden}
+section.warm{background:var(--warm)}
+section.white{background:var(--white)}
+section.dark{background:var(--black);color:#fff}
+section.brand{background:var(--brand);color:#fff}
+section .inner{max-width:1200px;width:100%}
+
+.hero-title{font-size:clamp(42px,5.5vw,72px);font-weight:900;line-height:1.2;letter-spacing:-2px;color:var(--black);max-width:1200px}
+.part-num{font-size:14px;font-weight:800;color:var(--brand);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(28px,3.5vw,48px);font-weight:900;line-height:1.25;letter-spacing:-1px}
+.section-sub{font-size:18px;color:#64748b;margin-top:12px;line-height:1.7;max-width:800px}
+.accent{color:var(--brand)}
+.label{display:inline-block;padding:6px 16px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:.5px}
+.label.brand{background:var(--brand);color:#fff}
+.label.green{background:var(--green);color:#fff}
+.label.blue{background:var(--blue);color:#fff}
+.label.teal{background:var(--teal);color:#fff}
+.label.amber{background:var(--amber);color:#fff}
+
+.g{display:grid;gap:32px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+.card{background:var(--white);border-radius:20px;padding:36px 32px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 20px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.card.dark{background:var(--black);color:#fff;border:none}
+.card.brand{background:var(--brand);color:#fff;border:none}
+.card.warm{background:var(--warm);border:none}
+.card h3{font-size:22px;font-weight:800;margin-bottom:10px;line-height:1.3}
+.card h4{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--brand)}
+.card p{font-size:16px;color:#64748b;line-height:1.7}
+.card ul{list-style:none;padding:0;margin-top:12px}
+.card ul li{font-size:15px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.05);color:#475569;line-height:1.5}
+.card ul li:last-child{border-bottom:none}
+.card ul li::before{content:'\2022';color:var(--brand);font-weight:700;margin-right:8px}
+.card.dark ul li{color:#cbd5e1;border-bottom-color:rgba(255,255,255,.08)}
+.card.dark h4{color:#f87171}
+.card.brand ul li{color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.15)}
+.card.brand h4{color:rgba(255,255,255,.9)}
+
+.tbl{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.04);margin-top:24px}
+.tbl thead{background:var(--brand);color:#fff}
+.tbl th{padding:14px 18px;font-size:13px;font-weight:700;text-align:left;letter-spacing:.5px}
+.tbl td{padding:12px 18px;font-size:14px;background:var(--white);border-bottom:1px solid #f1f5f9}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#fdf8f5}
+
+/* ── insight box ── */
+.insight{border-radius:16px;padding:28px 32px;position:relative;overflow:hidden}
+.insight.common{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0}
+.insight.unique{background:linear-gradient(135deg,#fef3c7,#fde68a33);border:1px solid #fde68a}
+.insight-icon{font-size:28px;margin-bottom:12px}
+.insight h4{font-size:18px;font-weight:800;margin-bottom:14px;color:var(--black)}
+.insight.common h4{color:#15803d}
+.insight.unique h4{color:#b45309}
+.insight ul{list-style:none;padding:0}
+.insight ul li{font-size:15px;padding:6px 0;line-height:1.6;color:#374151}
+.insight ul li::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:10px;vertical-align:middle}
+.insight.common ul li::before{background:var(--green)}
+.insight.unique ul li::before{background:var(--amber)}
+
+/* ── bar chart ── */
+.bar-chart{margin-top:20px}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar-label{width:100px;font-size:13px;font-weight:700;text-align:right;flex-shrink:0;color:#374151}
+.bar-track{flex:1;height:28px;background:#e2e8f0;border-radius:14px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:14px;display:flex;align-items:center;padding-left:12px;font-size:12px;font-weight:700;color:#fff;transition:width 1.5s cubic-bezier(.4,0,.2,1);width:0}
+.bar-fill.brand{background:linear-gradient(90deg,var(--brand),var(--brand-light))}
+.bar-fill.green{background:linear-gradient(90deg,#16a34a,#22c55e)}
+.bar-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.bar-fill.blue{background:linear-gradient(90deg,#1d4ed8,#3b82f6)}
+.bar-fill.amber{background:linear-gradient(90deg,#d97706,#f59e0b)}
+.bar-fill.teal{background:linear-gradient(90deg,#0f766e,#14b8a6)}
+.bar-value{font-size:13px;font-weight:700;color:#374151;flex-shrink:0;width:60px}
+
+/* ── gauge ── */
+.gauge-row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.gauge{text-align:center;width:140px}
+.gauge-circle{width:100px;height:100px;border-radius:50%;position:relative;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
+.gauge-circle .gauge-num{font-size:28px;font-weight:900;color:var(--brand)}
+.gauge-circle svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.gauge-caption{font-size:13px;font-weight:600;color:#64748b}
+
+/* ── status dot ── */
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
+.status::before{content:'';width:10px;height:10px;border-radius:50%}
+.status.high::before{background:var(--red)}
+.status.mid::before{background:var(--amber)}
+.status.low::before{background:var(--green)}
+.status.none::before{background:#cbd5e1}
+
+/* ── badge ── */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700}
+.badge.red{background:#fef2f2;color:var(--red)}
+.badge.green{background:#f0fdf4;color:#16a34a}
+.badge.blue{background:#eff6ff;color:var(--blue)}
+.badge.amber{background:#fffbeb;color:#d97706}
+
+/* ── tab ── */
+.tab-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tab-btn{padding:10px 22px;border-radius:30px;border:2px solid #e2e8f0;background:transparent;font-size:14px;font-weight:700;cursor:pointer;color:#64748b;transition:.2s}
+.tab-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.tab-btn:hover:not(.active){background:var(--warm);border-color:#cbd5e1}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── flow ── */
+.flow-h{display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.flow-step{background:var(--white);border-radius:16px;padding:20px 24px;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,.04);font-size:14px}
+.flow-step.accent{background:var(--brand);color:#fff;box-shadow:0 4px 24px rgba(151,27,47,.2)}
+.flow-arrow{font-size:24px;color:var(--gray)}
+
+/* ── stat ── */
+.stat-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.stat-box{text-align:center;padding:20px 28px}
+.stat-num{font-size:48px;font-weight:900;color:var(--brand);letter-spacing:-1px}
+.stat-label{font-size:14px;color:var(--gray);margin-top:6px;font-weight:600}
+
+/* ── country flag pill ── */
+.country-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:700;background:var(--white);border:1px solid #e2e8f0;margin:4px}
+
+/* ── nav ── */
+.section-logo{height:36px;margin-bottom:16px;display:block}
+.dot-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:200;align-items:flex-end}
+.dot-nav a{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.dot-nav a::after{content:'';display:block;width:8px;height:8px;border-radius:50%;background:#b0b8c4;transition:all .3s;flex-shrink:0}
+.dot-nav a.active::after{background:var(--brand);width:10px;height:10px;box-shadow:0 0 0 3px rgba(151,27,47,.18)}
+.dot-nav a .dot-label{display:none;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:800;background:#1e293b;color:#fff;white-space:nowrap;letter-spacing:.5px}
+.dot-nav a:hover .dot-label{display:block}
+.dot-grp-label{font-size:10px;font-weight:700;color:var(--gray);letter-spacing:2px;text-align:right;margin-top:6px;margin-bottom:2px;text-transform:uppercase}
+.fs-btn{position:fixed;bottom:24px;right:28px;z-index:200;background:var(--white);border:1px solid #e5e7eb;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:700;color:#374151;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:.2s}
+.fs-btn:hover{background:#f9fafb;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+
+/* ── key insight callout ── */
+.key-insight{background:linear-gradient(135deg,#971B2F11,#971B2F08);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:20px 28px;margin-top:24px}
+.key-insight strong{color:var(--brand);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.key-insight p{font-size:16px;font-weight:600;color:var(--black);margin-top:6px;line-height:1.6}
+
+/* ── visual map dots ── */
+.region-map{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+.region-item{text-align:center;width:120px}
+.region-dot{width:60px;height:60px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;position:relative}
+.region-dot.threat-high{background:var(--red)}
+.region-dot.threat-mid{background:var(--amber)}
+.region-dot.threat-low{background:var(--green)}
+.region-dot.threat-none{background:#cbd5e1}
+.region-name{font-size:13px;font-weight:700;color:#374151}
+.region-sub{font-size:11px;color:var(--gray);margin-top:2px}
+
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:none}
+.fade-in.d1{transition-delay:.15s}
+.fade-in.d2{transition-delay:.3s}
+.fade-in.d3{transition-delay:.45s}
+
+@media(max-width:900px){
+  section{padding:40px 24px}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .flow-h{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+  .bar-label{width:70px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- Logo & Nav -->
+<nav class="dot-nav" id="dotNav"></nav>
+<button class="fs-btn" onclick="toggleFS()">&#x26F6; 전체화면</button>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PART 1 : SECA 대응책 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="brand" data-theme="dark" data-group="part1" data-label="개요">
+  <div class="inner" style="text-align:center">
+    <div class="fade-in">
+      <div style="font-size:100px;font-weight:900;opacity:.2;margin-bottom:8px">01</div>
+      <h2 class="section-title" style="color:#fff;font-size:clamp(36px,4.5vw,60px)">SECA 대응책</h2>
+      <p style="color:rgba(255,255,255,.65);font-size:18px;margin-top:12px">경쟁사 대응책 및 대응전략</p>
+      <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">멕시코</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">미국</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">베트남</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">일본</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">중국</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">튀르키예</span>
+        <span class="country-pill" style="background:rgba(255,255,255,.15);border-color:transparent;color:#fff">호주</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P1 Summary: 공통점 & 특이점 -->
+<section class="white" data-theme="light" data-group="part1" data-label="요약">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 01 &mdash; SECA 대응책</div>
+      <h2 class="section-title">7개 법인 <span class="accent">공통점 &middot; 특이점</span></h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:32px">
+      <div class="insight common">
+        <div class="insight-icon">&#128200;</div>
+        <h4>공통점</h4>
+        <ul>
+          <li>SECA는 대부분 국가에서 <strong>의료 중심 포지셔닝</strong>으로 피트니스 시장 침투 제한적</li>
+          <li>InBody가 피트니스 시장에서 <strong>기술력 &middot; 가격 &middot; 서비스</strong> 3가지 우위 확보</li>
+          <li>Matrix Fitness와 SECA의 <strong>PACE 파트너십</strong>이 여러 국가에서 공통 위협 요인</li>
+          <li>중국 업체(VISBODY, Anovator)의 <strong>저가 진입</strong>이 신규 위협으로 부상 중</li>
+        </ul>
+      </div>
+      <div class="insight unique">
+        <div class="insight-icon">&#128161;</div>
+        <h4>특이점</h4>
+        <ul>
+          <li><strong>미국</strong> &mdash; Evolt이 SECA보다 더 큰 위협, 0% 무이자 60개월 할부 공격적 프로모션</li>
+          <li><strong>중국</strong> &mdash; SECA 철수 직전, 사실상 경쟁 없음</li>
+          <li><strong>일본</strong> &mdash; SECA 16명 소규모, 주 경쟁은 Tanita</li>
+          <li><strong>튀르키예</strong> &mdash; Tanita vs InBody 양자 구조, SECA 거의 부재</li>
+          <li><strong>호주</strong> &mdash; Evolt 360이 로컬 경쟁사로 활동</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>SECA의 실질적 위협은 미국 &middot; 멕시코에 한정 &mdash; 아시아는 Tanita/Evolt/중국 업체가 주요 변수</p>
+    </div>
+  </div>
+</section>
+
+<!-- P1-2: SECA 위협도 시각화 -->
+<section class="warm" data-theme="light" data-group="part1" data-label="위협도">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 01 &mdash; SECA 대응책</div>
+      <h2 class="section-title">국가별 경쟁사 <span class="accent">위협도</span></h2>
+    </div>
+    <div class="region-map fade-in d1">
+      <div class="region-item"><div class="region-dot threat-high">!</div><div class="region-name">미국</div><div class="region-sub">SECA + Evolt 이중 위협</div></div>
+      <div class="region-item"><div class="region-dot threat-high">!</div><div class="region-name">멕시코</div><div class="region-sub">SECA 딜러망 + 7개 경쟁사</div></div>
+      <div class="region-item"><div class="region-dot threat-mid">&#9888;</div><div class="region-name">베트남</div><div class="region-sub">Matrix-SECA PACE</div></div>
+      <div class="region-item"><div class="region-dot threat-mid">&#9888;</div><div class="region-name">호주</div><div class="region-sub">Evolt 360 로컬</div></div>
+      <div class="region-item"><div class="region-dot threat-low">&#10003;</div><div class="region-name">일본</div><div class="region-sub">SECA 16명 소규모</div></div>
+      <div class="region-item"><div class="region-dot threat-low">&#10003;</div><div class="region-name">튀르키예</div><div class="region-sub">SECA 거의 부재</div></div>
+      <div class="region-item"><div class="region-dot threat-none">-</div><div class="region-name">중국</div><div class="region-sub">SECA 철수 직전</div></div>
+    </div>
+    <div class="fade-in d2" style="margin-top:40px">
+      <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">미국 &mdash; SECA vs Evolt 가격 비교</h4>
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">SECA mBCA</div><div class="bar-track"><div class="bar-fill red" data-width="100">$15K</div></div><div class="bar-value">$9~15K</div></div>
+        <div class="bar-row"><div class="bar-label">SECA Alpha</div><div class="bar-track"><div class="bar-fill red" data-width="53">$8K</div></div><div class="bar-value">$5~8K</div></div>
+        <div class="bar-row"><div class="bar-label">Evolt 360</div><div class="bar-track"><div class="bar-fill amber" data-width="87">$13K</div></div><div class="bar-value">$6~13K</div></div>
+        <div class="bar-row"><div class="bar-label">Evolt SW</div><div class="bar-track"><div class="bar-fill amber" data-width="20">$99/월</div></div><div class="bar-value">$99/월</div></div>
+        <div class="bar-row"><div class="bar-label">SECA SW</div><div class="bar-track"><div class="bar-fill red" data-width="10">$75/월</div></div><div class="bar-value">$75/월</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P1-3: InBody 대응전략 -->
+<section class="white" data-theme="light" data-group="part1" data-label="대응전략">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 01 &mdash; SECA 대응책</div>
+      <h2 class="section-title">InBody <span class="accent">대응전략</span></h2>
+    </div>
+    <div class="g g3 fade-in d1" style="margin-top:32px">
+      <div class="card">
+        <div style="font-size:36px;margin-bottom:12px">&#9881;&#65039;</div>
+        <h3>기술 차별화</h3>
+        <ul>
+          <li>경쟁사 경험적 추정 방식의 한계 강조</li>
+          <li>세그멘탈 데이터 (부위별 위상각/수분) 우위</li>
+          <li>MRI 대비 높은 정확도</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-size:36px;margin-bottom:12px">&#128176;</div>
+        <h3>가격 &middot; 번들 경쟁력</h3>
+        <ul>
+          <li>낮은 SW 구독 비용 (vs Evolt $99)</li>
+          <li>Zalo/로컬 SW 연동 (베트남)</li>
+          <li>매스마켓 장비사 협업 (MBH/DHZ)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-size:36px;margin-bottom:12px">&#129309;</div>
+        <h3>파트너십 강화</h3>
+        <ul>
+          <li>Life Fitness: InBody에 먼저 제안</li>
+          <li>EGYM: 본사 방문 연동 완료</li>
+          <li>Precor: 프리미엄 채널 제휴 (베트남)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>Evolt의 0% 60개월 할부와 패키지 번들링이 미국 시장의 가장 큰 변수 &mdash; InBody도 파이낸싱 옵션 검토 필요</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PART 2 : 파트너사 현황 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="brand" data-theme="dark" data-group="part2" data-label="개요">
+  <div class="inner" style="text-align:center">
+    <div class="fade-in">
+      <div style="font-size:100px;font-weight:900;opacity:.2;margin-bottom:8px">02</div>
+      <h2 class="section-title" style="color:#fff;font-size:clamp(36px,4.5vw,60px)">파트너사 현황</h2>
+      <p style="color:rgba(255,255,255,.65);font-size:18px;margin-top:12px">각 법인 파트너사 업체 리스트업 &middot; SW 파트너사 포함</p>
+    </div>
+  </div>
+</section>
+
+<!-- P2 Summary -->
+<section class="white" data-theme="light" data-group="part2" data-label="요약">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 02 &mdash; 파트너사 현황</div>
+      <h2 class="section-title">7개 법인 <span class="accent">공통점 &middot; 특이점</span></h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:32px">
+      <div class="insight common">
+        <div class="insight-icon">&#128200;</div>
+        <h4>공통점</h4>
+        <ul>
+          <li>피트니스 장비 업체와의 <strong>연동/통합</strong>이 파트너십의 핵심 형태</li>
+          <li>대부분 법인이 <strong>SW 파트너사 확보</strong>를 우선 과제로 인식</li>
+          <li>Technogym/EGYM 등 장비사들이 <strong>자체 BCA 개발</strong>하면서 관계 복잡화</li>
+        </ul>
+      </div>
+      <div class="insight unique">
+        <div class="insight-icon">&#128161;</div>
+        <h4>특이점</h4>
+        <ul>
+          <li><strong>일본</strong> &mdash; 1,500+ 파트너사 (압도적 1위), 의료계 대리점 중심</li>
+          <li><strong>미국</strong> &mdash; Technogym/EGYM/Life Fitness 대형 장비사 파트너십</li>
+          <li><strong>중국</strong> &mdash; 정상가/특가/초특가 3단계 가격 체계 운영</li>
+          <li><strong>멕시코/튀르키예</strong> &mdash; 사업 초기, 아직 유의미한 파트너 없음</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fade-in d2" style="margin-top:32px">
+      <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">법인별 파트너사 규모</h4>
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">일본</div><div class="bar-track"><div class="bar-fill brand" data-width="100">1,500+</div></div><div class="bar-value">1,500+</div></div>
+        <div class="bar-row"><div class="bar-label">미국</div><div class="bar-track"><div class="bar-fill brand" data-width="15">대형 3사</div></div><div class="bar-value">3사 (대형)</div></div>
+        <div class="bar-row"><div class="bar-label">중국</div><div class="bar-track"><div class="bar-fill brand" data-width="8">6사</div></div><div class="bar-value">6사</div></div>
+        <div class="bar-row"><div class="bar-label">멕시코</div><div class="bar-track"><div class="bar-fill amber" data-width="3">초기</div></div><div class="bar-value">초기</div></div>
+        <div class="bar-row"><div class="bar-label">튀르키예</div><div class="bar-track"><div class="bar-fill amber" data-width="3">초기</div></div><div class="bar-value">초기</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P2-2: 미국 파트너사 -->
+<section class="warm" data-theme="light" data-group="part2" data-label="미국">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 02 &mdash; 파트너사</div>
+      <h2 class="section-title"><span class="accent">미국</span> 장비사 파트너십</h2>
+    </div>
+    <div class="g g3 fade-in d1" style="margin-top:32px">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">Technogym</h3><span class="badge amber">주의</span></div>
+        <ul>
+          <li>자체 BCA 장비 개발 판매 중</li>
+          <li>7000모델 $8K / 9000모델 $13K</li>
+          <li>판매 실적 약함, 연동 유지 희망</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">EGYM</h3><span class="badge blue">진행 중</span></div>
+        <ul>
+          <li>SECA와 공식 파트너십 체결</li>
+          <li>InBody 본사 방문 &rarr; 연동 완료</li>
+          <li>hub 온보딩 통합 필요</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">Life Fitness</h3><span class="badge green">기회</span></div>
+        <ul>
+          <li>InBody에 파트너십 먼저 제안</li>
+          <li>현재 Evolt 연동 &rarr; InBody 전환 추진</li>
+          <li>다양한 장비 연동 확대 방향</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>장비사들이 자체 BCA를 개발하면서도 InBody 연동을 원하는 이유: 체성분 시장에서 InBody의 브랜드 파워가 압도적</p>
+    </div>
+  </div>
+</section>
+
+<!-- P2-3: 일본 & 중국 파트너사 -->
+<section class="white" data-theme="light" data-group="part2" data-label="일본/중국">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 02 &mdash; 파트너사</div>
+      <h2 class="section-title"><span class="accent">일본 &middot; 중국</span> 파트너사</h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:28px">
+      <div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--brand);margin-bottom:16px">일본 Top 5 파트너사 ('25 판매대수)</h4>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label" style="font-size:11px">ウエルアップ</div><div class="bar-track"><div class="bar-fill brand" data-width="100">103대</div></div><div class="bar-value">103대</div></div>
+          <div class="bar-row"><div class="bar-label" style="font-size:11px">伊藤超短波</div><div class="bar-track"><div class="bar-fill brand" data-width="38">39대</div></div><div class="bar-value">39대</div></div>
+          <div class="bar-row"><div class="bar-label" style="font-size:11px">MM Corp</div><div class="bar-track"><div class="bar-fill brand" data-width="30">31대</div></div><div class="bar-value">31대</div></div>
+          <div class="bar-row"><div class="bar-label" style="font-size:11px">AEC</div><div class="bar-track"><div class="bar-fill brand" data-width="29">30대</div></div><div class="bar-value">30대</div></div>
+          <div class="bar-row"><div class="bar-label" style="font-size:11px">タクミ</div><div class="bar-track"><div class="bar-fill brand" data-width="29">30대</div></div><div class="bar-value">30대</div></div>
+        </div>
+        <p style="font-size:12px;color:var(--gray);margin-top:8px">* 1위 ウエルアップ: 스미토모생명보험 Vitality 등 이벤트적 대량도입</p>
+      </div>
+      <div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--brand);margin-bottom:16px">중국 가격 체계</h4>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">정상가</div><div class="bar-track"><div class="bar-fill brand" data-width="100">&#165;18,300</div></div><div class="bar-value">&#165;18,300</div></div>
+          <div class="bar-row"><div class="bar-label">특가</div><div class="bar-track"><div class="bar-fill amber" data-width="82">&#165;15,000</div></div><div class="bar-value">&#165;12~16.8K</div></div>
+          <div class="bar-row"><div class="bar-label">초특가</div><div class="bar-track"><div class="bar-fill red" data-width="44">&#165;7,998</div></div><div class="bar-value">&#165;7,998</div></div>
+        </div>
+        <p style="font-size:12px;color:var(--gray);margin-top:8px">* 초특가(乐刻健身): 정상가 대비 <strong style="color:var(--red)">56% 할인</strong></p>
+        <div class="key-insight" style="margin-top:16px">
+          <strong>Key Insight</strong>
+          <p>중국 초특가(&#165;7,998)는 정상가의 절반 이하 &mdash; 프랜차이즈 볼륨 확보를 위한 공격적 가격</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PART 3 : 프랜차이즈 현황 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="brand" data-theme="dark" data-group="part3" data-label="개요">
+  <div class="inner" style="text-align:center">
+    <div class="fade-in">
+      <div style="font-size:100px;font-weight:900;opacity:.2;margin-bottom:8px">03</div>
+      <h2 class="section-title" style="color:#fff;font-size:clamp(36px,4.5vw,60px)">프랜차이즈 현황</h2>
+      <p style="color:rgba(255,255,255,.65);font-size:18px;margin-top:12px">각 법인 프랜차이즈 업체 현황 및 리스트업</p>
+    </div>
+  </div>
+</section>
+
+<!-- P3 Summary -->
+<section class="white" data-theme="light" data-group="part3" data-label="요약">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 03 &mdash; 프랜차이즈 현황</div>
+      <h2 class="section-title">7개 법인 <span class="accent">공통점 &middot; 특이점</span></h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:32px">
+      <div class="insight common">
+        <div class="insight-icon">&#128200;</div>
+        <h4>공통점</h4>
+        <ul>
+          <li>각국 <strong>상위 1~2개 대형 프랜차이즈</strong>가 시장을 주도</li>
+          <li>대형 프랜차이즈 계약이 곧 <strong>수백 대 볼륨</strong>으로 직결</li>
+          <li>Evolt이 여러 국가에서 <strong>프랜차이즈 계약 경쟁</strong></li>
+        </ul>
+      </div>
+      <div class="insight unique">
+        <div class="insight-icon">&#128161;</div>
+        <h4>특이점</h4>
+        <ul>
+          <li><strong>미국</strong> &mdash; Orangetheory 1,364대 전지점 도입 (최대 성공 사례)</li>
+          <li><strong>미국</strong> &mdash; Anytime Fitness 2,300+ 지점이 Evolt로 전환 (최대 위협)</li>
+          <li><strong>멕시코</strong> &mdash; Smart Fit 465+ 지점 (중남미 최대)</li>
+          <li><strong>튀르키예</strong> &mdash; MacFit 167개 센터 독과점, 저가 BIA 주로 사용</li>
+          <li><strong>호주</strong> &mdash; Jetts 280+ / Snap 235+ 다수 중규모 체인</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>Anytime Fitness(5,000+ 글로벌)의 Evolt 전환이 가장 큰 위기 &mdash; 반면 Orangetheory/Equinox/Life Time은 InBody 충성</p>
+    </div>
+  </div>
+</section>
+
+<!-- P3-2: 미국 프랜차이즈 시각화 -->
+<section class="warm" data-theme="light" data-group="part3" data-label="미국">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 03 &mdash; 프랜차이즈</div>
+      <h2 class="section-title"><span class="accent">미국</span> 프랜차이즈 InBody 도입률</h2>
+    </div>
+    <div class="fade-in d1" style="margin-top:24px">
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">Orangetheory</div><div class="bar-track"><div class="bar-fill brand" data-width="100">1,364대</div></div><div class="bar-value"><span class="status high" style="font-size:0"></span>전지점</div></div>
+        <div class="bar-row"><div class="bar-label">Life Time</div><div class="bar-track"><div class="bar-fill brand" data-width="37">498대</div></div><div class="bar-value"><span class="status high" style="font-size:0"></span>전지점</div></div>
+        <div class="bar-row"><div class="bar-label">Anytime</div><div class="bar-track"><div class="bar-fill red" data-width="26">349대 (Evolt 전환)</div></div><div class="bar-value"><span class="badge red">Evolt</span></div></div>
+        <div class="bar-row"><div class="bar-label">Equinox</div><div class="bar-track"><div class="bar-fill brand" data-width="25">334대</div></div><div class="bar-value"><span class="status high" style="font-size:0"></span>전지점</div></div>
+        <div class="bar-row"><div class="bar-label">Gold's Gym</div><div class="bar-track"><div class="bar-fill brand" data-width="8">111대</div></div><div class="bar-value">상당수</div></div>
+        <div class="bar-row"><div class="bar-label">Snap Fitness</div><div class="bar-track"><div class="bar-fill blue" data-width="5">69대</div></div><div class="bar-value">Mixed</div></div>
+        <div class="bar-row"><div class="bar-label">Crunch</div><div class="bar-track"><div class="bar-fill blue" data-width="2">26대</div></div><div class="bar-value">Mixed</div></div>
+        <div class="bar-row"><div class="bar-label">Planet Fitness</div><div class="bar-track"><div class="bar-fill green" data-width="1"></div></div><div class="bar-value"><span class="badge green">추진 중</span></div></div>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>Planet Fitness(2,700+ 지점, 20M+ 회원)가 InBody 도입을 적극 추진 중 &mdash; 성사 시 역대 최대 규모</p>
+    </div>
+  </div>
+</section>
+
+<!-- P3-3: 기타 국가 프랜차이즈 -->
+<section class="white" data-theme="light" data-group="part3" data-label="기타 국가">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 03 &mdash; 프랜차이즈</div>
+      <h2 class="section-title"><span class="accent">멕시코 &middot; 호주 &middot; 튀르키예</span></h2>
+    </div>
+    <div class="g g3 fade-in d1" style="margin-top:32px">
+      <div class="card" style="text-align:center">
+        <h3>멕시코</h3>
+        <div class="stat-num" data-count="465" style="font-size:42px;margin:12px 0">0</div>
+        <p style="font-weight:700">Smart Fit 지점</p>
+        <div style="margin-top:16px;text-align:left">
+          <div class="bar-chart">
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Smart Fit</div><div class="bar-track"><div class="bar-fill brand" data-width="100"></div></div><div class="bar-value" style="width:40px">465+</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Anytime</div><div class="bar-track"><div class="bar-fill brand" data-width="23"></div></div><div class="bar-value" style="width:40px">105</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Sports W.</div><div class="bar-track"><div class="bar-fill brand" data-width="11"></div></div><div class="bar-value" style="width:40px">50+</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Planet F.</div><div class="bar-track"><div class="bar-fill brand" data-width="10"></div></div><div class="bar-value" style="width:40px">47+</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>호주</h3>
+        <div style="margin-top:16px;text-align:left">
+          <div class="bar-chart">
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Jetts</div><div class="bar-track"><div class="bar-fill brand" data-width="100"></div></div><div class="bar-value" style="width:40px">280+</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Snap</div><div class="bar-track"><div class="bar-fill brand" data-width="84"></div></div><div class="bar-value" style="width:40px">235+</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Hit Fit</div><div class="bar-track"><div class="bar-fill blue" data-width="15"></div></div><div class="bar-value" style="width:40px">&mdash;</div></div>
+            <div class="bar-row"><div class="bar-label" style="width:80px;font-size:12px">Yard Gym</div><div class="bar-track"><div class="bar-fill blue" data-width="10"></div></div><div class="bar-value" style="width:40px">&mdash;</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>튀르키예</h3>
+        <div class="stat-num" data-count="167" style="font-size:42px;margin:12px 0">0</div>
+        <p style="font-weight:700">MacFit 센터</p>
+        <ul style="text-align:left;margin-top:16px">
+          <li>시장 독과점 형태</li>
+          <li>저가 Tanita / 중고 BIA 주 사용</li>
+          <li>일부 지점 InBody 120, 270</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PART 4 : EMR 연동 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="brand" data-theme="dark" data-group="part4" data-label="개요">
+  <div class="inner" style="text-align:center">
+    <div class="fade-in">
+      <div style="font-size:100px;font-weight:900;opacity:.2;margin-bottom:8px">04</div>
+      <h2 class="section-title" style="color:#fff;font-size:clamp(36px,4.5vw,60px)">EMR 연동</h2>
+      <p style="color:rgba(255,255,255,.65);font-size:18px;margin-top:12px">각 법인 EMR 연동 업체 리스트업 &middot; 연동 방법</p>
+    </div>
+  </div>
+</section>
+
+<!-- P4 Summary -->
+<section class="white" data-theme="light" data-group="part4" data-label="요약">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 04 &mdash; EMR 연동</div>
+      <h2 class="section-title">7개 법인 <span class="accent">공통점 &middot; 특이점</span></h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:32px">
+      <div class="insight common">
+        <div class="insight-icon">&#128200;</div>
+        <h4>공통점</h4>
+        <ul>
+          <li>EMR 연동은 <strong>의료 시장 침투의 핵심</strong> &mdash; 병원 도입의 전제 조건</li>
+          <li>각 국가의 EMR 시장은 <strong>파편화</strong>되어 있어 개별 연동 필요</li>
+          <li>연동 방식이 국가별로 상이 &mdash; 표준화된 글로벌 연동 프로토콜 부재</li>
+        </ul>
+      </div>
+      <div class="insight unique">
+        <div class="insight-icon">&#128161;</div>
+        <h4>특이점</h4>
+        <ul>
+          <li><strong>미국</strong> &mdash; 25개 EMR 파트너, 300개 고객사 (가장 성숙)</li>
+          <li><strong>일본</strong> &mdash; 18개 시스템 연동, LB120 + Open Protocol 이중 체계</li>
+          <li><strong>튀르키예</strong> &mdash; 6개 EMR 업체 확보 (초기 치고 양호)</li>
+          <li><strong>중국</strong> &mdash; 병원별 개별 전산실, 표준화 불가</li>
+          <li><strong>멕시코</strong> &mdash; 직접 연동 업체 없음, 미팅 예정 단계</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fade-in d2" style="margin-top:32px">
+      <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">법인별 EMR 연동 성숙도</h4>
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">미국</div><div class="bar-track"><div class="bar-fill brand" data-width="100">25개 파트너 / 300 고객사</div></div><div class="bar-value"><span class="badge green">성숙</span></div></div>
+        <div class="bar-row"><div class="bar-label">일본</div><div class="bar-track"><div class="bar-fill brand" data-width="72">18개 시스템</div></div><div class="bar-value"><span class="badge green">성숙</span></div></div>
+        <div class="bar-row"><div class="bar-label">튀르키예</div><div class="bar-track"><div class="bar-fill blue" data-width="24">6개 업체</div></div><div class="bar-value"><span class="badge blue">성장</span></div></div>
+        <div class="bar-row"><div class="bar-label">중국</div><div class="bar-track"><div class="bar-fill amber" data-width="10">개별 대응</div></div><div class="bar-value"><span class="badge amber">특수</span></div></div>
+        <div class="bar-row"><div class="bar-label">멕시코</div><div class="bar-track"><div class="bar-fill red" data-width="3"></div></div><div class="bar-value"><span class="badge red">미비</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P4-2: 미국 EMR -->
+<section class="warm" data-theme="light" data-group="part4" data-label="미국">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 04 &mdash; EMR 연동</div>
+      <h2 class="section-title"><span class="accent">미국</span> EMR Top 10</h2>
+    </div>
+    <div class="stat-row fade-in d1">
+      <div class="stat-box"><div class="stat-num" data-count="25">0</div><div class="stat-label">EMR 파트너</div></div>
+      <div class="stat-box"><div class="stat-num" data-count="300">0</div><div class="stat-label">연동 고객사</div></div>
+    </div>
+    <div class="g g2 fade-in d2" style="margin-top:24px">
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">Epic Systems</div><div class="bar-track"><div class="bar-fill brand" data-width="100"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">athenahealth</div><div class="bar-track"><div class="bar-fill brand" data-width="85"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">Cerbo EHR</div><div class="bar-track"><div class="bar-fill brand" data-width="70"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">DrChrono</div><div class="bar-track"><div class="bar-fill brand" data-width="60"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">OptiMantra</div><div class="bar-track"><div class="bar-fill brand" data-width="50"></div></div></div>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">AdvancedMD</div><div class="bar-track"><div class="bar-fill brand" data-width="45"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">Biocanic</div><div class="bar-track"><div class="bar-fill brand" data-width="40"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">Guava Health</div><div class="bar-track"><div class="bar-fill brand" data-width="35"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">ChARM</div><div class="bar-track"><div class="bar-fill brand" data-width="30"></div></div></div>
+        <div class="bar-row"><div class="bar-label" style="font-size:12px">Body Site</div><div class="bar-track"><div class="bar-fill brand" data-width="25"></div></div></div>
+      </div>
+    </div>
+    <div class="key-insight fade-in d3">
+      <strong>Key Insight</strong>
+      <p>Epic Systems(Mayo Clinic 등) 연동이 미국 의료시장 신뢰도의 핵심 &mdash; 대형 병원 레퍼런스 확보 완료</p>
+    </div>
+  </div>
+</section>
+
+<!-- P4-3: 일본 EMR 연동 방법 -->
+<section class="white" data-theme="light" data-group="part4" data-label="일본">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 04 &mdash; EMR 연동</div>
+      <h2 class="section-title"><span class="accent">일본</span> EMR 연동 체계</h2>
+    </div>
+    <div class="g g2 fade-in d1" style="margin-top:28px">
+      <div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--brand);margin-bottom:12px">연동 방식 분포</h4>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">LB120</div><div class="bar-track"><div class="bar-fill brand" data-width="78">14개</div></div><div class="bar-value">14개 (78%)</div></div>
+          <div class="bar-row"><div class="bar-label">Open Protocol</div><div class="bar-track"><div class="bar-fill teal" data-width="17">3개</div></div><div class="bar-value">3개 (17%)</div></div>
+          <div class="bar-row"><div class="bar-label">OP + LB120</div><div class="bar-track"><div class="bar-fill blue" data-width="11">2개</div></div><div class="bar-value">2개 (병행)</div></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:16px;font-weight:700;color:var(--brand);margin-bottom:12px">연동 플로우</h4>
+        <div class="flow-h" style="margin-top:16px">
+          <div class="flow-step"><strong>InBody</strong></div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step accent"><strong>LB120</strong><br><small>CSV/PDF</small></div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step"><strong>EMR</strong></div>
+        </div>
+        <div class="flow-h" style="margin-top:12px">
+          <div class="flow-step"><strong>InBody</strong></div>
+          <div class="flow-arrow">&harr;</div>
+          <div class="flow-step accent"><strong>Open Protocol</strong><br><small>USB 직접통신</small></div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step"><strong>EMR</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>일본은 동일 회사 EMR도 여러 버전이 있어 매번 사전조사 &amp; 커스터마이즈가 필요 &mdash; 표준 연동 가이드 정비 필요</p>
+    </div>
+  </div>
+</section>
+
+<!-- P4-4: 기타 국가 EMR -->
+<section class="warm" data-theme="light" data-group="part4" data-label="기타 국가">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="part-num">PART 04 &mdash; EMR 연동</div>
+      <h2 class="section-title"><span class="accent">멕시코 &middot; 튀르키예 &middot; 중국</span></h2>
+    </div>
+    <div class="g g3 fade-in d1" style="margin-top:32px">
+      <div class="card" style="text-align:center">
+        <h3>멕시코</h3>
+        <div style="font-size:48px;font-weight:900;color:var(--red);margin:16px 0">0</div>
+        <p style="font-weight:700;color:var(--gray)">현재 EMR 파트너</p>
+        <ul style="text-align:left;margin-top:16px">
+          <li>ABC EVO가 SmartFit용 연동 진행</li>
+          <li>Nimbo, Eleonor 등 4사 미팅 예정</li>
+        </ul>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>튀르키예</h3>
+        <div style="font-size:48px;font-weight:900;color:var(--teal);margin:16px 0" data-count="6">0</div>
+        <p style="font-weight:700;color:var(--gray)">EMR 업체</p>
+        <ul style="text-align:left;margin-top:16px">
+          <li>Fonet Bilgi &middot; Kardelen</li>
+          <li>Nucleus-Monad &middot; Sisoft</li>
+          <li>Medisoft &middot; Medicasimple</li>
+        </ul>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>중국</h3>
+        <div style="font-size:48px;font-weight:900;color:var(--amber);margin:16px 0">&#8734;</div>
+        <p style="font-weight:700;color:var(--gray)">병원별 개별 전산</p>
+        <ul style="text-align:left;margin-top:16px">
+          <li>표준화된 EMR 파트너 없음</li>
+          <li>각 병원 자체 전산실 운영</li>
+          <li>건별 개별 대응 필요</li>
+        </ul>
+      </div>
+    </div>
+    <div class="key-insight fade-in d2">
+      <strong>Key Insight</strong>
+      <p>멕시코는 EMR 파트너가 전무한 상태 &mdash; SmartFit(465+ 지점) 연동을 시작점으로 생태계 구축이 시급</p>
+    </div>
+  </div>
+</section>
+
+
+<script>
+const sections = document.querySelectorAll('section');
+const dotNav = document.getElementById('dotNav');
+let lastGroup = '';
+
+sections.forEach(s => {
+  const logo = document.createElement('img');
+  logo.src = 'inbody-logo-cropped.png';
+  logo.alt = 'InBody';
+  logo.className = 'section-logo';
+  if (s.dataset.theme === 'dark') logo.style.filter = 'brightness(0) invert(1)';
+  const inner = s.querySelector('.inner');
+  if (inner) inner.insertBefore(logo, inner.firstChild);
+});
+
+const partGroups = ['part1','part2','part3','part4'];
+const partLabels = ['PART 1','PART 2','PART 3','PART 4'];
+const partFirstIdx = [];
+partGroups.forEach(g => {
+  const idx = [...sections].findIndex(s => s.dataset.group === g);
+  partFirstIdx.push(idx);
+});
+
+partGroups.forEach((g, pi) => {
+  const a = document.createElement('a');
+  a.innerHTML = '<span class="dot-label">' + partLabels[pi] + '</span>';
+  a.onclick = () => sections[partFirstIdx[pi]].scrollIntoView({ behavior: 'smooth' });
+  a.dataset.part = g;
+  dotNav.appendChild(a);
+});
+
+const dots = dotNav.querySelectorAll('a');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const g = e.target.dataset.group;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.part === g));
+      e.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(s => obs.observe(s));
+
+/* bar chart animation */
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.bar-fill[data-width]').forEach(b => {
+      if (b.style.width !== '0px' && b.style.width !== '0%' && b.style.width) return;
+      setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 100);
+    });
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.bar-chart').forEach(c => barObs.observe(c));
+
+/* counter animation */
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    if (el.dataset.done) return;
+    el.dataset.done = '1';
+    const target = +el.dataset.count;
+    const dur = 1200;
+    const start = performance.now();
+    const tick = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * ease).toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString() + (target >= 100 ? '+' : '');
+    };
+    requestAnimationFrame(tick);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+function toggleFS() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+function switchTab(group, idx) {
+  document.querySelectorAll('.tab-panel[data-tabgroup="' + group + '"]').forEach((p, i) => p.classList.toggle('active', i === idx));
+  const bar = document.getElementById(group + 'tabs');
+  if (bar) bar.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+</script>
+</body>
+</html>
