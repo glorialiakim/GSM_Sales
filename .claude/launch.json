@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gsm-sales",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "3456", "-s", "C:\\Users\\user\\OneDrive - InBody Co., Ltd\\문서\\Claude projects\\GSM_Sales"],
+      "port": 3456
+    }
+  ]
+}

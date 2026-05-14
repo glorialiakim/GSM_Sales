@@ -12,20 +12,29 @@
   --brand:#971B2F;--brand-light:#c0334d;--black:#1e293b;--warm:#f5f0ea;--warm2:#ece5dc;
   --white:#fff;--gray:#94a3b8;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#2563eb;--teal:#0d9488;
 }
-html{scroll-behavior:smooth;scroll-snap-type:y mandatory;overflow-y:scroll;font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
-body{background:var(--warm);color:var(--black)}
+html{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;overflow:hidden;height:100%}
+body{background:var(--warm);color:var(--black);height:100%;overflow:hidden}
+#deck{display:flex;width:100vw;height:100vh;overflow-x:scroll;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#deck::-webkit-scrollbar{display:none}
 
-section{height:100vh;max-height:56.25vw;min-height:500px;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;padding:48px 100px;overflow:hidden}
+section{min-width:100vw;width:100vw;height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:relative;padding:32px 80px 60px;overflow-y:auto;flex-shrink:0}
 section.warm{background:var(--warm)}
 section.white{background:var(--white)}
 section.dark{background:var(--black);color:#fff}
-section.brand{background:var(--brand);color:#fff}
+section.brand{background:var(--brand);color:#fff;justify-content:center}
 section .inner{max-width:1200px;width:100%}
+
+/* ── slide counter ── */
+.slide-counter{display:none}
+.slide-nav{position:fixed;bottom:24px;z-index:200;width:44px;height:44px;border-radius:50%;border:1px solid #e2e8f0;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;color:#374151;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:.2s}
+.slide-nav:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+.slide-nav.prev{left:28px}
+.slide-nav.next{right:28px}
 
 .hero-title{font-size:clamp(42px,5.5vw,72px);font-weight:900;line-height:1.2;letter-spacing:-2px;color:var(--black);max-width:1200px}
 .part-num{font-size:14px;font-weight:800;color:var(--brand);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
-.section-title{font-size:clamp(28px,3.5vw,48px);font-weight:900;line-height:1.25;letter-spacing:-1px}
-.section-sub{font-size:18px;color:#64748b;margin-top:12px;line-height:1.7;max-width:800px}
+.section-title{font-size:clamp(24px,3vw,40px);font-weight:900;line-height:1.25;letter-spacing:-1px}
+.section-sub{font-size:15px;color:#64748b;margin-top:8px;line-height:1.6;max-width:800px}
 .accent{color:var(--brand)}
 .label{display:inline-block;padding:6px 16px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:.5px}
 .label.brand{background:var(--brand);color:#fff}
@@ -34,21 +43,21 @@ section .inner{max-width:1200px;width:100%}
 .label.teal{background:var(--teal);color:#fff}
 .label.amber{background:var(--amber);color:#fff}
 
-.g{display:grid;gap:32px}
+.g{display:grid;gap:20px}
 .g2{grid-template-columns:1fr 1fr}
 .g3{grid-template-columns:1fr 1fr 1fr}
 .g4{grid-template-columns:1fr 1fr 1fr 1fr}
 
-.card{background:var(--white);border-radius:20px;padding:36px 32px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 20px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s}
+.card{background:var(--white);border-radius:16px;padding:24px 24px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 20px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,0,0,.08)}
 .card.dark{background:var(--black);color:#fff;border:none}
 .card.brand{background:var(--brand);color:#fff;border:none}
 .card.warm{background:var(--warm);border:none}
-.card h3{font-size:22px;font-weight:800;margin-bottom:10px;line-height:1.3}
-.card h4{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--brand)}
-.card p{font-size:16px;color:#64748b;line-height:1.7}
-.card ul{list-style:none;padding:0;margin-top:12px}
-.card ul li{font-size:15px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.05);color:#475569;line-height:1.5}
+.card h3{font-size:19px;font-weight:800;margin-bottom:8px;line-height:1.3}
+.card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--brand)}
+.card p{font-size:14px;color:#64748b;line-height:1.6}
+.card ul{list-style:none;padding:0;margin-top:8px}
+.card ul li{font-size:14px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05);color:#475569;line-height:1.5}
 .card ul li:last-child{border-bottom:none}
 .card ul li::before{content:'\2022';color:var(--brand);font-weight:700;margin-right:8px}
 .card.dark ul li{color:#cbd5e1;border-bottom-color:rgba(255,255,255,.08)}
@@ -64,15 +73,15 @@ section .inner{max-width:1200px;width:100%}
 .tbl tr:hover td{background:#fdf8f5}
 
 /* ── insight box ── */
-.insight{border-radius:16px;padding:28px 32px;position:relative;overflow:hidden}
+.insight{border-radius:14px;padding:20px 24px;position:relative;overflow:hidden}
 .insight.common{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0}
 .insight.unique{background:linear-gradient(135deg,#fef3c7,#fde68a33);border:1px solid #fde68a}
-.insight-icon{font-size:28px;margin-bottom:12px}
-.insight h4{font-size:18px;font-weight:800;margin-bottom:14px;color:var(--black)}
+.insight-icon{font-size:22px;margin-bottom:8px}
+.insight h4{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--black)}
 .insight.common h4{color:#15803d}
 .insight.unique h4{color:#b45309}
 .insight ul{list-style:none;padding:0}
-.insight ul li{font-size:15px;padding:6px 0;line-height:1.6;color:#374151}
+.insight ul li{font-size:13px;padding:4px 0;line-height:1.5;color:#374151}
 .insight ul li::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:10px;vertical-align:middle}
 .insight.common ul li::before{background:var(--green)}
 .insight.unique ul li::before{background:var(--amber)}
@@ -138,16 +147,14 @@ section .inner{max-width:1200px;width:100%}
 .country-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:700;background:var(--white);border:1px solid #e2e8f0;margin:4px}
 
 /* ── nav ── */
-.section-logo{height:36px;margin-bottom:16px;display:block}
-.dot-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:200;align-items:flex-end}
-.dot-nav a{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.section-logo{height:28px;margin-bottom:8px;display:block}
+.dot-nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:row;gap:14px;z-index:200;align-items:center}
+.dot-nav a{display:flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none}
 .dot-nav a::after{content:'';display:block;width:8px;height:8px;border-radius:50%;background:#b0b8c4;transition:all .3s;flex-shrink:0}
 .dot-nav a.active::after{background:var(--brand);width:10px;height:10px;box-shadow:0 0 0 3px rgba(151,27,47,.18)}
-.dot-nav a .dot-label{display:none;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:800;background:#1e293b;color:#fff;white-space:nowrap;letter-spacing:.5px}
+.dot-nav a .dot-label{display:none;position:absolute;bottom:28px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:6px;font-size:12px;font-weight:800;background:#1e293b;color:#fff;white-space:nowrap;letter-spacing:.5px}
 .dot-nav a:hover .dot-label{display:block}
-.dot-grp-label{font-size:10px;font-weight:700;color:var(--gray);letter-spacing:2px;text-align:right;margin-top:6px;margin-bottom:2px;text-transform:uppercase}
-.fs-btn{position:fixed;bottom:24px;right:28px;z-index:200;background:var(--white);border:1px solid #e5e7eb;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:700;color:#374151;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:.2s}
-.fs-btn:hover{background:#f9fafb;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.dot-nav a{position:relative}
 
 /* ── key insight callout ── */
 .key-insight{background:linear-gradient(135deg,#971B2F11,#971B2F08);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:20px 28px;margin-top:24px}
@@ -166,6 +173,15 @@ section .inner{max-width:1200px;width:100%}
 .region-sub{font-size:11px;color:var(--gray);margin-top:2px}
 
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(151,27,47,.4)}70%{box-shadow:0 0 0 12px rgba(151,27,47,0)}100%{box-shadow:0 0 0 0 rgba(151,27,47,0)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.region-dot{cursor:pointer;transition:transform .3s}
+.region-dot:hover{transform:scale(1.15);animation:pulse 1.5s infinite}
+.card{transition:transform .3s,box-shadow .3s}
+.flow-step{transition:transform .3s,box-shadow .3s}
+.flow-step:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.tab-panel.active{animation:slideInLeft .4s ease}
 .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
 .fade-in.visible{opacity:1;transform:none}
 .fade-in.d1{transition-delay:.15s}
@@ -183,10 +199,13 @@ section .inner{max-width:1200px;width:100%}
 </head>
 <body>
 
-<!-- Logo & Nav -->
+<!-- Slide navigation UI -->
+<div class="slide-counter" id="slideCounter">1 / 18</div>
+<button class="slide-nav prev" id="prevBtn" onclick="goSlide(-1)">&#10094;</button>
+<button class="slide-nav next" id="nextBtn" onclick="goSlide(1)">&#10095;</button>
 <nav class="dot-nav" id="dotNav"></nav>
-<button class="fs-btn" onclick="toggleFS()">&#x26F6; 전체화면</button>
 
+<div id="deck">
 
 <!-- ═══════════════════════════════════════════════ -->
 <!-- PART 1 : SECA 대응책 -->
@@ -263,14 +282,45 @@ section .inner{max-width:1200px;width:100%}
       <div class="region-item"><div class="region-dot threat-low">&#10003;</div><div class="region-name">튀르키예</div><div class="region-sub">SECA 거의 부재</div></div>
       <div class="region-item"><div class="region-dot threat-none">-</div><div class="region-name">중국</div><div class="region-sub">SECA 철수 직전</div></div>
     </div>
-    <div class="fade-in d2" style="margin-top:40px">
-      <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">미국 &mdash; SECA vs Evolt 가격 비교</h4>
-      <div class="bar-chart">
-        <div class="bar-row"><div class="bar-label">SECA mBCA</div><div class="bar-track"><div class="bar-fill red" data-width="100">$15K</div></div><div class="bar-value">$9~15K</div></div>
-        <div class="bar-row"><div class="bar-label">SECA Alpha</div><div class="bar-track"><div class="bar-fill red" data-width="53">$8K</div></div><div class="bar-value">$5~8K</div></div>
-        <div class="bar-row"><div class="bar-label">Evolt 360</div><div class="bar-track"><div class="bar-fill amber" data-width="87">$13K</div></div><div class="bar-value">$6~13K</div></div>
-        <div class="bar-row"><div class="bar-label">Evolt SW</div><div class="bar-track"><div class="bar-fill amber" data-width="20">$99/월</div></div><div class="bar-value">$99/월</div></div>
-        <div class="bar-row"><div class="bar-label">SECA SW</div><div class="bar-track"><div class="bar-fill red" data-width="10">$75/월</div></div><div class="bar-value">$75/월</div></div>
+    <div class="fade-in d2" style="margin-top:32px">
+      <div class="tab-bar" id="threatTabs">
+        <button class="tab-btn active" onclick="switchTab('threat',0)">미국 가격 비교</button>
+        <button class="tab-btn" onclick="switchTab('threat',1)">일본 경쟁 구도</button>
+        <button class="tab-btn" onclick="switchTab('threat',2)">베트남 대응</button>
+      </div>
+      <div class="tab-panel active" data-tabgroup="threat">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">미국 &mdash; SECA vs Evolt 가격 비교</h4>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">SECA mBCA</div><div class="bar-track"><div class="bar-fill red" data-width="100">$15K</div></div><div class="bar-value">$9~15K</div></div>
+          <div class="bar-row"><div class="bar-label">SECA Alpha</div><div class="bar-track"><div class="bar-fill red" data-width="53">$8K</div></div><div class="bar-value">$5~8K</div></div>
+          <div class="bar-row"><div class="bar-label">Evolt 360</div><div class="bar-track"><div class="bar-fill amber" data-width="87">$13K</div></div><div class="bar-value">$6~13K</div></div>
+          <div class="bar-row"><div class="bar-label">Evolt SW</div><div class="bar-track"><div class="bar-fill amber" data-width="20">$99/월</div></div><div class="bar-value">$99/월</div></div>
+          <div class="bar-row"><div class="bar-label">SECA SW</div><div class="bar-track"><div class="bar-fill red" data-width="10">$75/월</div></div><div class="bar-value">$75/월</div></div>
+        </div>
+      </div>
+      <div class="tab-panel" data-tabgroup="threat">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">일본 &mdash; 피트니스 경쟁 구도</h4>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">InBody</div><div class="bar-track"><div class="bar-fill brand" data-width="100">1위</div></div><div class="bar-value">시장 선점</div></div>
+          <div class="bar-row"><div class="bar-label">Tanita</div><div class="bar-track"><div class="bar-fill amber" data-width="75">주 경쟁</div></div><div class="bar-value">거의 모든 안건</div></div>
+          <div class="bar-row"><div class="bar-label">Yamato</div><div class="bar-track"><div class="bar-fill blue" data-width="20">초저가</div></div><div class="bar-value">한정적</div></div>
+          <div class="bar-row"><div class="bar-label">Evolt</div><div class="bar-track"><div class="bar-fill blue" data-width="10">AT 한정</div></div><div class="bar-value">Anytime만</div></div>
+          <div class="bar-row"><div class="bar-label">SECA</div><div class="bar-track"><div class="bar-fill red" data-width="5"></div></div><div class="bar-value">16명, 고전</div></div>
+        </div>
+      </div>
+      <div class="tab-panel" data-tabgroup="threat">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:var(--brand)">베트남 &mdash; 이중 전략</h4>
+        <div class="flow-h">
+          <div class="flow-step accent"><strong>매스 마켓</strong><br><small>MBH / DHZ</small></div>
+          <div class="flow-arrow">+</div>
+          <div class="flow-step accent"><strong>프리미엄</strong><br><small>Precor 제휴</small></div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step"><strong>Matrix-SECA</strong><br><small>PACE 파트너십 대응</small></div>
+        </div>
+        <div class="key-insight" style="margin-top:20px">
+          <strong>Key Insight</strong>
+          <p>Zalo(국민 메신저) 연동으로 소비자 접점 확보 &mdash; 로컬 SW 생태계 활용이 핵심</p>
+        </div>
       </div>
     </div>
   </div>
@@ -749,10 +799,14 @@ section .inner{max-width:1200px;width:100%}
 </section>
 
 
+</div><!-- /deck -->
+
 <script>
+const deck = document.getElementById('deck');
 const sections = document.querySelectorAll('section');
 const dotNav = document.getElementById('dotNav');
-let lastGroup = '';
+const counter = document.getElementById('slideCounter');
+const total = sections.length;
 
 sections.forEach(s => {
   const logo = document.createElement('img');
@@ -775,25 +829,54 @@ partGroups.forEach(g => {
 partGroups.forEach((g, pi) => {
   const a = document.createElement('a');
   a.innerHTML = '<span class="dot-label">' + partLabels[pi] + '</span>';
-  a.onclick = () => sections[partFirstIdx[pi]].scrollIntoView({ behavior: 'smooth' });
+  a.onclick = () => { deck.scrollTo({ left: partFirstIdx[pi] * window.innerWidth, behavior: 'smooth' }); };
   a.dataset.part = g;
   dotNav.appendChild(a);
 });
 
 const dots = dotNav.querySelectorAll('a');
 
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const g = e.target.dataset.group;
-      dots.forEach(d => d.classList.toggle('active', d.dataset.part === g));
-      e.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-    }
-  });
-}, { threshold: 0.35 });
-sections.forEach(s => obs.observe(s));
+function getCurrentSlide() {
+  const scrollLeft = deck.scrollLeft;
+  return Math.round(scrollLeft / window.innerWidth);
+}
 
-/* bar chart animation */
+function updateCounter() {
+  const cur = getCurrentSlide();
+  counter.textContent = (cur + 1) + ' / ' + total;
+  const g = sections[cur] ? sections[cur].dataset.group : '';
+  dots.forEach(d => d.classList.toggle('active', d.dataset.part === g));
+}
+
+deck.addEventListener('scroll', updateCounter);
+
+function goSlide(dir) {
+  const cur = getCurrentSlide();
+  const next = Math.max(0, Math.min(total - 1, cur + dir));
+  deck.scrollTo({ left: next * window.innerWidth, behavior: 'smooth' });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goSlide(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goSlide(-1); }
+  if (e.key === 'Home') { e.preventDefault(); deck.scrollTo({ left: 0, behavior: 'smooth' }); }
+  if (e.key === 'End') { e.preventDefault(); deck.scrollTo({ left: (total-1) * window.innerWidth, behavior: 'smooth' }); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+function revealCurrentSlide() {
+  const cur = getCurrentSlide();
+  const s = sections[cur];
+  if (s) {
+    s.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+}
+deck.addEventListener('scrollend', revealCurrentSlide);
+deck.addEventListener('scroll', () => { clearTimeout(deck._rt); deck._rt = setTimeout(revealCurrentSlide, 150); });
+
 const barObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -802,10 +885,9 @@ const barObs = new IntersectionObserver(entries => {
       setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 100);
     });
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.3, root: deck });
 document.querySelectorAll('.bar-chart').forEach(c => barObs.observe(c));
 
-/* counter animation */
 const cObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -824,19 +906,17 @@ const cObs = new IntersectionObserver(entries => {
     };
     requestAnimationFrame(tick);
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.5, root: deck });
 document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
-
-function toggleFS() {
-  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-  else document.exitFullscreen();
-}
 
 function switchTab(group, idx) {
   document.querySelectorAll('.tab-panel[data-tabgroup="' + group + '"]').forEach((p, i) => p.classList.toggle('active', i === idx));
   const bar = document.getElementById(group + 'tabs');
   if (bar) bar.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
 }
+
+updateCounter();
+revealCurrentSlide();
 </script>
 </body>
 </html>
