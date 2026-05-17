@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "gsm-sales",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3456", "-s", "C:\\Users\\user\\OneDrive - InBody Co., Ltd\\문서\\Claude projects\\GSM_Sales"],
-      "port": 3456
+      "runtimeExecutable": "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "3457", "-d", "C:\\Users\\user\\OneDrive - InBody Co., Ltd\\문서\\Claude projects\\GSM_Sales\\.claude\\worktrees\\quirky-germain-93e917"],
+      "port": 3457
     }
   ]
 }
